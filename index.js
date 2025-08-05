@@ -17,6 +17,11 @@ const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
 
+// Healthcheck endpoint for Railway
+app.get('/health', (req, res) => {
+  res.json({ status: 'ok' });
+});
+
 app.post('/webhook', line.middleware(config), (req, res) => {
   Promise
     .all(req.body.events.map(handleEvent))
